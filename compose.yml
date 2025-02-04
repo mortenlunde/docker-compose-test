@@ -14,6 +14,8 @@ services:
     image: mortenlunde/student-blogg-api-complete:latest
     networks: 
       - stud-blog-net
+    ports:
+    - "8080:8080"
     #deploy:
     #  replicas: 3
     environment:
@@ -24,6 +26,8 @@ services:
     image: mortenlunde/student-blogg-db-complete:latest
     networks: 
       - stud-blog-net
+    ports:
+    - "3306:3306"
     volumes:
       - stud-blog-vol:/var/lib/mysql
 
