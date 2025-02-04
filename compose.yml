@@ -1,0 +1,35 @@
+services:
+  web:
+    container_name: stud-blog-web
+    image: mortenlunde/student-blogg-nginx-complete:latest
+    ports:
+    - "80:80"
+    depends_on:
+      - api
+    networks:
+      - stud-blog-net
+
+  api: 
+    container_name: stud-blog-api
+    image: mortenlunde/student-blogg-api-complete:latest
+    networks: 
+      - stud-blog-net
+    #deploy:
+    #  replicas: 3
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=stud-blog-db;Database=ga_emne7_avansert;User ID=ga-app;Password=ga-5ecret-%;
+
+  db:
+    container_name: stud-blog-db
+    image: mortenlunde/student-blogg-db-complete:latest
+    networks: 
+      - stud-blog-net
+    volumes:
+      - stud-blog-vol:/var/lib/mysql
+
+networks:
+  stud-blog-net:
+    driver: bridge
+
+volumes:
+  stud-blog-vol:
